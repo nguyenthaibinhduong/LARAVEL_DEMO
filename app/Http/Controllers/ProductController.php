@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -13,8 +15,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $title="Product";
-        return view('admin.product.index',compact('title'));
+        $dssp = Product::all();
+        //dd($dssp);
+        return view('admin.product.index',compact('dssp'));
     }
 
     /**
@@ -24,7 +27,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $dsdm = Category::all() ;
+        return view('admin.product.create',compact('dsdm'));
     }
 
     /**
@@ -35,7 +39,12 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->category_id);
+        Product::create([
+            'name'=>$request->name,
+            'category_id'=>$request->category_id,
+        ]);
+        return redirect()->route('product');
     }
 
     /**
@@ -78,8 +87,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        Product::find($id)->delete();
+        return redirect()->back();
     }
 }

@@ -1,33 +1,24 @@
 @extends('layouts.admin-layout')
 @section('content')
-<h4>{{ $title }}</h4>
+<a class="btn btn-dark" href="{{ route('product.create') }}">Thêm sản phẩm</a>
 <table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col"></th>
+      
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
+    @foreach ($dssp as $product)
+      <tr>
+      <th scope="row">{{ $loop->iteration }}</th>
+      <td>{{ $product->name }}</td>
+      <td><a href="{{ route('product.delete',['id'=>$product->id]) }}" class="btn btn-danger">Delete</a></td>
+      </tr>  
+    @endforeach
+    
   </tbody>
 </table>
 @endsection

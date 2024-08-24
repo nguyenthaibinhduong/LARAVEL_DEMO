@@ -17,4 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('client.index');
 });
-Route::get('/product', [ProductController::class ,'index']);
+
+Route::get('/product', [ProductController::class, 'index'])->name('product');
+Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
+Route::post('/product/store', [ProductController::class,'store'])->name('product.store');
+Route::get('/product/delete/{id}', [ProductController::class,'delete'])->name('product.delete');
